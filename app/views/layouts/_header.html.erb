@@ -8,14 +8,14 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="#">Home </a>
+        <li class="<%= 'active' if current_page?(:controller => 'dashboard', :action => 'home')%>">
+          <a href="/">Home </a>
         </li>
-        <li>
-          <a href="#about">Create</a>
+        <li class="<%= 'active' if current_page?(:controller => 'dashboard', :action => 'create')%>">
+          <a href="dashboard/create">Create</a>
         </li>
-        <li>
-          <a href="#contact">Manage</a>
+        <li class="<%= 'active' if current_page?(:controller => 'dashboard', :action => 'manage')%>">
+          <a href="dashboard/manage">Manage</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

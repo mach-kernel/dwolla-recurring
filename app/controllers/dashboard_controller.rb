@@ -4,6 +4,17 @@ class DashboardController < ApplicationController
 	def home
 	end
 	
+	# Scheduled Transactions
+	def create
+		@fs = []
+		DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
+			@fs.push([h['Name'], h['Id']])
+		end
+	end
+
+
+	# Session Management
+
 	def login
 		redirect_to DwollaVars.Dwolla::OAuth.get_auth_url(DwollaVars.redirect)
 	end
@@ -17,7 +28,7 @@ class DashboardController < ApplicationController
 			session[:oauth_token] = DwollaVars.Dwolla::OAuth.get_token(params['code'], DwollaVars.redirect)['access_token']
 
 			# Set name, for aesthetics.
-			session[:name] = DwollaVars.Dwolla::Users.me(token=session[:oauth_token])['Name']
+			session[:name] = DwollaVars.Dwolla::Users.me(session[:oauth_token])['Name']
 
 			flash[:success] = "You have been successfully logged in!"
 			redirect_to "/"
