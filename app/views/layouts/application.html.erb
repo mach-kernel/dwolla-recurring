@@ -1,14 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html>
-<head>
-  <title>DwollaRecurringHeroku</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title><%=yield(:title) %></title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+    </style>
+  </head>
+  
+  <body>
+	<%= render partial: "layouts/header" %>
+	<% if params[:controller] != "public_pages" %>
+	<div class="container">
+	<%= render partial: "layouts/flash_messages", flash: flash %>
+	<%= yield %>
+	<%= render partial: "layouts/footer" %>
+	</div>
+	<% else %>
+	<%= yield %>
+	<%= render partial: "layouts/footer" %>
+	<% end %>
+  </body>
 </html>
