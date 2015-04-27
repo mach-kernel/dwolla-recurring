@@ -1,0 +1,24 @@
+<div class="jumbotron">
+<div class="container">
+<h1>Hi there!</h1>
+<% unless logged_in? -%>
+  <p>It appears that you are not signed in yet. Use your Dwolla account to log in.</p>
+  <p><%= link_to "Get Started »", {:action => "login", :controller => "dashboard"}, :class => "btn btn-primary btn-lg", :method => :get %></p>
+<% end -%>
+
+</div>
+</div>
+<div class="container">
+<!-- Example row of columns -->
+<div class="row">
+<div class="col-md-6 col-lg-6">
+<h2>Create a scheduled transaction</h2>
+<p>It's like money, but tomorrow.&nbsp;</p>
+<p><a class="btn btn-default" href="#">Schedule a transaction &raquo;</a></p>
+</div>
+<div class="col-md-6 col-lg-6">
+<h2>Manage scheduled transactions</h2>
+<p>As long as they haven't been processed, you can do what you wish!</p>
+<p><a class="btn btn-default" href="#">View scheduled transactions &raquo;</a></p>
+</div>
+</div>

@@ -18,16 +18,17 @@
           <a href="#contact">Manage</a>
         </li>
       </ul>
-      <form class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" placeholder="Email" class="form-control">
+      <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-form">
+          <% if logged_in? -%>
+            <a href="#">Signed in as: <span class="label label-primary"><%= "#{session[:name]}" %></span></a>
+            <%= link_to "Log Out", {:action => "logout", :controller => "dashboard"}, :class => "btn btn-danger", :method => :get %>
+          <% end -%>
         </div>
-        <div class="form-group">
-          <input type="password" placeholder="Password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-success">Sign in</button>
-      </form>
+      </ul>
     </div>
     <!--/.navbar-collapse -->
   </div>
 </div>
+
+<br />
