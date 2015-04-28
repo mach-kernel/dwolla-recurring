@@ -1,0 +1,6 @@
+Tue, 28 Apr 2015 10:54:12 -0400
+README.rdoc	Mon, 27 Apr 2015 11:52:08 -0400
+app/controllers/application_controller.rb	Mon, 27 Apr 2015 14:04:34 -0400
+app/controllers/dashboard_controller.rb	Tue, 28 Apr 2015 10:52:10 -0400
+app/helpers/application_helper.rb	Mon, 27 Apr 2015 13:41:37 -0400
+app/helpers/dashboard_helper.rb	Mon, 27 Apr 2015 12:15:49 -0400
