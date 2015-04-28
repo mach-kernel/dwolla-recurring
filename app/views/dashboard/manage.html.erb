@@ -1,23 +1,37 @@
 <div class="container">
   <h1 class="page-header">Manage Scheduled Transactions</h1>
+  <h4>You have a total of <%= @scheduled.length %> scheduled transaction(s).</h4>
   <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
         <th>To</th>
         <th>Date</th>
-        <th>Amount</th>
+        <th>Amount (USD)</th>
+        <th>Status</th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Michael</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Jake</td>
-      </tr>
+      <% @scheduled.each do |t| %>
+        <tr>
+          <td><%= t['Destination']['Id'] %></td>
+          <td><%= t['ScheduledDate'] %></td>
+          <td><%= t['Amount'] %></td>
+          <td><%= t['Status'] %></td>
+          <% unless t['Status'] == "processed" -%>
+            <td>
+              <%= link_to "Edit", {:action => "manage", :controller => "dashboard", :id => t['Id']}, :class => "btn btn-xs btn-primary", :method => :get %>
+            </td>
+            <td>
+              <%= form_for(:delete, :url => {:controller => 'dashboard', :action => 'delete'}) do |f| %>
+                <%= f.submit "Delete", :confirm => "Are you sure?", class: "btn btn-xs btn-danger pull-right" %> PIN: <%= f.password_field :pin, size: 4 %>
+                <%= f.hidden_field :Id, :value => t['Id'] %>
+              <% end %>
+            </td>
+          <% end -%>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

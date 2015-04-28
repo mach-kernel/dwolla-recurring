@@ -5,7 +5,6 @@ class DashboardController < ApplicationController
 	end
 	
 	# Scheduled Transactions
-	
 	def create
 		@fs = []
 		DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
@@ -14,6 +13,30 @@ class DashboardController < ApplicationController
 	end
 
 	def manage
+		if params[:id]
+			@transaction = DwollaVars.Dwolla::Transactions.scheduled_by_id(params[:id], session[:oauth_token])
+
+			@fs = []
+			DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
+				@fs.push([h['Name'], h['Id']])
+			end
+
+			render 'edit'
+		else
+			@scheduled = DwollaVars.Dwolla::Transactions.scheduled({}, session[:oauth_token])['Results']
+			render 'manage'
+		end
+	end
+
+	def delete
+		if not params[:delete]
+			flash[:error] = "You've arrived here in error. Sorry!"
+			redirect_to '/dashboard/manage'
+		else
+			DwollaVars.Dwolla::Transactions.delete_scheduled_by_id(params[:delete][:Id], {:pin => params[:delete][:pin]}, session[:oauth_token])
+			flash[:success] = "You've successfully deleted the scheduled transaction"
+			redirect_to '/dashboard/manage'
+		end
 	end
 
 	def process_scheduled
@@ -22,9 +45,16 @@ class DashboardController < ApplicationController
 			# parameters which the gem expects, you do not need
 			# to create another hash.
 			DwollaVars.Dwolla::Transactions.schedule(params[:scheduled], session[:oauth_token])
+
+			flash[:success] = "The scheduled transaction has been succesfully created!"
+			redirect_to '/'
+		elsif params[:commit] == "Edit"
+			DwollaVars.Dwolla::Transactions.edit_scheduled(params[:scheduled][:Id], params[:scheduled].except!(:Id), session[:oauth_token])
+
+			flash[:success] = "The scheduled transaction has been succesfully edited!"
+			redirect_to '/dashboard/manage'
 		end
-		flash[:success] = "The scheduled transaction has been succesfully created!"
-		redirect_to '/'
+
 	end
 
 	# Session Management
@@ -44,12 +74,14 @@ class DashboardController < ApplicationController
 			# Set name, for aesthetics.
 			session[:name] = DwollaVars.Dwolla::Users.me(session[:oauth_token])['Name']
 
+			# Make user happy
 			flash[:success] = "You have been successfully logged in!"
 			redirect_to "/"
 		end
 	end
 
 	def logout
+		# Destroy the rails session hash
 		reset_session
 	    flash[:alert] = "You have logged out."
 	    redirect_to "/"
