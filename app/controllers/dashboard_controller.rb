@@ -54,6 +54,20 @@ class DashboardController < ApplicationController
 			# If you name all of your form parameters by the 
 			# parameters which the gem expects, you do not need
 			# to create another hash.
+			weekly_recurrence = ""
+
+			weekly_recurrence << "1," if params[:scheduled][:mon]
+			weekly_recurrence << "2," if params[:scheduled][:tue]
+			weekly_recurrence << "3," if params[:scheduled][:wed]
+			weekly_recurrence << "4," if params[:scheduled][:thu]
+			weekly_recurrence << "5," if params[:scheduled][:fri]
+			weekly_recurrence << "6," if params[:scheduled][:sat]
+			weekly_recurrence << "7" if params[:scheduled][:sun]
+
+			unless weekly_recurrence.empty?
+				params[:scheduled][:Recurrence] = {:frequency => 'weekly', :onDays => "#{}"}
+			end
+			
 			DwollaVars.Dwolla::Transactions.schedule(params[:scheduled], session[:oauth_token])
 
 			flash[:success] = "The scheduled transaction has been succesfully created!"
