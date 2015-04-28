@@ -1,6 +1,8 @@
 # dwolla-recurring-heroku
 A quickstart tutorial application written in Rails 4 + bootstrap to illustrate recurring transactions in the Dwolla API.
 
+![Ooh! Pretty!](http://puu.sh/htYFn/1d9afd6b3e.png)
+
 ## Requirements
 - Rails 4+
 - Bundler

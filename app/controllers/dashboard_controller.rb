@@ -6,6 +6,11 @@ class DashboardController < ApplicationController
 	
 	# Scheduled Transactions
 	def create
+		unless logged_in?
+			flash[:error] = "Easy there! Log in first!"
+			redirect_to '/'
+		end		
+		
 		@fs = []
 		DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
 			@fs.push([h['Name'], h['Id']])
@@ -13,6 +18,11 @@ class DashboardController < ApplicationController
 	end
 
 	def manage
+		unless logged_in?
+			flash[:error] = "Easy there! Log in first!"
+			redirect_to '/'
+		end
+
 		if params[:id]
 			@transaction = DwollaVars.Dwolla::Transactions.scheduled_by_id(params[:id], session[:oauth_token])
 
