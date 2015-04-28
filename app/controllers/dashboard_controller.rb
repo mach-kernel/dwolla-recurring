@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
 	end
 	
 	# Scheduled Transactions
+	
 	def create
 		@fs = []
 		DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
@@ -12,6 +13,19 @@ class DashboardController < ApplicationController
 		end
 	end
 
+	def manage
+	end
+
+	def process_scheduled
+		if params[:commit] == "Create"
+			# If you name all of your form parameters by the 
+			# parameters which the gem expects, you do not need
+			# to create another hash.
+			DwollaVars.Dwolla::Transactions.schedule(params[:scheduled], session[:oauth_token])
+		end
+		flash[:success] = "The scheduled transaction has been succesfully created!"
+		redirect_to '/'
+	end
 
 	# Session Management
 

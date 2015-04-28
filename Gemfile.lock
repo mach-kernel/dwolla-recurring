@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Dwolla/dwolla-ruby.git
-  revision: 61334edb6be3432afc699d75848aa8747f8cc780
+  revision: d0f403d72822d7e5f72da65e0723492d995e09f3
   branch: 2.6.5
   specs:
     dwolla-ruby (2.6.5)
