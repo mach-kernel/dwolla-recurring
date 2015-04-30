@@ -86,7 +86,7 @@ Heroku is in the name of the repo, right?
     bundle install
     ```
     
-    And now, let's edit `config/initializers/dwollavars.rb` to change our callback URI to something appropriate (your instance's publically facing hostname'
+    And now, let's edit `config/initializers/dwollavars.rb` to change our callback URI to something appropriate (your instance's publically facing hostname is a good idea, but do not remove `dashboard/handle_oauth`)!
     ```ruby
 	module DwollaVars
 		...
