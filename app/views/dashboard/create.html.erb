@@ -13,7 +13,7 @@
         </div>
         <div class="panel-body">
           <%= form_for(:scheduled, :url => {:controller => 'dashboard', :action => 'process_scheduled'}) do |f| %>
-            <p>Destination ID:</br> <%= f.text_field :destinationId, class: 'form-control', :placeholder => '812-XXX-XXXX' %></p>
+            <p>Dwolla ID or E-Mail:</br> <%= f.text_field :destinationId, class: 'form-control', :placeholder => '812-XXX-XXXX or E-Mail' %></p>
             <p>Amount:</br> <%= f.text_field :amount, class: 'form-control' %> </p>
             <p>Funding Source:</br><%= f.collection_select :fundsSource, @fs, :last, :first %></p>
             <p>Scheduled Date:</br> <%= f.text_field :scheduleDate, class: 'form-control', :placeholder => 'YYYY-MM-DD' %> </p>

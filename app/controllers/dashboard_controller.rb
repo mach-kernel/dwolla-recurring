@@ -1,11 +1,19 @@
 require 'dwolla'
 
 class DashboardController < ApplicationController
+
+	# Generally, it is best to handle errors in every function for every case,
+	# however, given that this is a toy application and we will only throw API errors,
+	# it is ok to do this.
 	rescue_from Dwolla::DwollaError, :with => :rescue_dwolla_errors
 
 	def rescue_dwolla_errors(exception)
 		flash[:error] = "Uh oh! A Dwolla API error was encountered: \n#{exception.message}"
 		redirect_to :back
+	end
+
+	def is_email?(str)
+		str =~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	end
 
 
@@ -75,6 +83,8 @@ class DashboardController < ApplicationController
 			unless weekly_recurrence.empty?
 				params[:scheduled][:Recurrence] = {:frequency => 'weekly', :onDays => "#{}"}
 			end
+
+			params[:scheduled][:destinationType] = is_email?(params[:scheduled][:destinationId]) ? "Email" : "Dwolla"
 			
 			DwollaVars.Dwolla::Transactions.schedule(params[:scheduled], session[:oauth_token])
 
