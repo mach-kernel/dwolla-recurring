@@ -81,7 +81,7 @@ class DashboardController < ApplicationController
 			weekly_recurrence << "7" if params[:scheduled][:sat]
 
 			unless weekly_recurrence.empty?
-				params[:scheduled][:Recurrence] = {:frequency => 'weekly', :onDays => weekly_recurrence}
+				params[:scheduled][:recurrence] = {:frequency => 'weekly', :onDays => weekly_recurrence}
 			end
 
 			params[:scheduled][:destinationType] = is_email?(params[:scheduled][:destinationId]) ? "Email" : "Dwolla"
