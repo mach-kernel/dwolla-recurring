@@ -1,40 +1,48 @@
 require 'dwolla'
 
 class DashboardController < ApplicationController
+	rescue_from Dwolla::DwollaError, :with => :rescue_dwolla_errors
+
+	def rescue_dwolla_errors(exception)
+		flash[:error] = "Uh oh! A Dwolla API error was encountered: \n#{exception.message}"
+		redirect_to :back
+	end
+
+
 	def home
 	end
 	
 	# Scheduled Transactions
 	def create
-		unless logged_in?
+		if not logged_in?
 			flash[:error] = "Easy there! Log in first!"
 			redirect_to '/'
-		end		
-		
-		@fs = []
-		DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
-			@fs.push([h['Name'], h['Id']])
-		end
-	end
-
-	def manage
-		unless logged_in?
-			flash[:error] = "Easy there! Log in first!"
-			redirect_to '/'
-		end
-
-		if params[:id]
-			@transaction = DwollaVars.Dwolla::Transactions.scheduled_by_id(params[:id], session[:oauth_token])
-
+		else		
 			@fs = []
 			DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
 				@fs.push([h['Name'], h['Id']])
 			end
+		end
+	end
 
-			render 'edit'
+	def manage
+		if not logged_in?
+			flash[:error] = "Easy there! Log in first!"
+			redirect_to '/'
 		else
-			@scheduled = DwollaVars.Dwolla::Transactions.scheduled({}, session[:oauth_token])['Results']
-			render 'manage'
+			if params[:id]
+				@transaction = DwollaVars.Dwolla::Transactions.scheduled_by_id(params[:id], session[:oauth_token])
+
+				@fs = []
+				DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
+					@fs.push([h['Name'], h['Id']])
+				end
+
+				render 'edit'
+			else
+				@scheduled = DwollaVars.Dwolla::Transactions.scheduled({}, session[:oauth_token])['Results']
+				render 'manage'
+			end
 		end
 	end
 
