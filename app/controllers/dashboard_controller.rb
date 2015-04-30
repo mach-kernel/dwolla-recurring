@@ -71,14 +71,14 @@ class DashboardController < ApplicationController
 			# parameters which the gem expects, you do not need
 			# to create another hash.
 			weekly_recurrence = ""
-
-			weekly_recurrence << "1," if params[:scheduled][:mon]
-			weekly_recurrence << "2," if params[:scheduled][:tue]
-			weekly_recurrence << "3," if params[:scheduled][:wed]
-			weekly_recurrence << "4," if params[:scheduled][:thu]
-			weekly_recurrence << "5," if params[:scheduled][:fri]
-			weekly_recurrence << "6," if params[:scheduled][:sat]
-			weekly_recurrence << "7" if params[:scheduled][:sun]
+			
+			weekly_recurrence << "1," if params[:scheduled][:sun]
+			weekly_recurrence << "2," if params[:scheduled][:mon]
+			weekly_recurrence << "3," if params[:scheduled][:tue]
+			weekly_recurrence << "4," if params[:scheduled][:wed]
+			weekly_recurrence << "5," if params[:scheduled][:thu]
+			weekly_recurrence << "6," if params[:scheduled][:fri]
+			weekly_recurrence << "7" if params[:scheduled][:sat]
 
 			unless weekly_recurrence.empty?
 				params[:scheduled][:Recurrence] = {:frequency => 'weekly', :onDays => weekly_recurrence}
