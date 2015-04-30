@@ -57,7 +57,17 @@ Heroku is in the name of the repo, right?
 - The [Heroku Toolbelt](https://toolbelt.heroku.com/) installed to your local machine (and added to your `%PATH%` variable if you are a Windows user).
 - I recommend forking this repository so that you can have write privileges. 
 
-### How-to
+### How-to deploy: the easy-peasy way
+
+*Please* fork this repository before doing this.
+
+1. Connect your GitHub account in your Heroku admin panel
+2. Search for your repository
+	![Search](https://s3.amazonaws.com/heroku.devcenter/heroku_assets/images/421-original.jpg)
+3. Deploy a branch
+	![Deploy](https://s3.amazonaws.com/heroku.devcenter/heroku_assets/images/422-original.jpg)
+
+### How-to deploy: the devops special
 
 1. Log in
     ```bash
