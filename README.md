@@ -7,7 +7,7 @@ A quickstart tutorial application written in Rails 4 + bootstrap to illustrate r
 - Rails 4+
 - Bundler
 
-While creating `dwolla-recurring-heroku` I forgot to remove the ActiveRecord dependencies, but the application does not require any database access as all the data is processed via the Dwolla API. ActiveRecord has been removed from this project. 
+This application does not require any database access as all the data is processed via the Dwolla API. ActiveRecord has been removed from this project. 
 
 ## Getting Started
 
