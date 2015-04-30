@@ -3,13 +3,13 @@ require 'dwolla'
 module DwollaVars
 	mattr_reader  :Dwolla, :redirect
 
-	@@key ||= "OFvc0S1ccEhgI/qJleEsIQQBdb3/mReQMkaNQmFbbo8PaAAtYI"
-	@@secret ||= "oi6jXUSXVN1MuB0YT6X5WV/Alhv9MZdtDLSd71h6HOLRpu6fSf"
+	@@key ||= "rhfI4mFE8JqAQolQdRyqUGrdzHif9qi72ST/Zhq5p38YxrF1rZ"
+	@@secret ||= "2zd9liH0d5LErdI6qMO5l/nk0PRydu+7TJ+S+dnIbhgTYeX4sD"
 
-	@@redirect ||= "http://localhost:3000/dashboard/handle_oauth"
+	@@redirect ||= "https://dwolla-recurring-heroku.herokuapp.com/dashboard/handle_oauth"
 
 	@@Dwolla ||= Dwolla
 	@@Dwolla::api_key ||= @@key
 	@@Dwolla::api_secret ||= @@secret
-	@@Dwolla::sandbox ||= true
+	@@Dwolla::sandbox ||= false
 end
