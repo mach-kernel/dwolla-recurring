@@ -60,42 +60,42 @@ Heroku is in the name of the repo, right?
 ### How-to
 
 1. Log in
-```bash
-heroku login
-
-Enter your Heroku credentials.
-Email: you@example.com
-Password:
-Could not find an existing public key.
-Would you like to generate one? [Yn]
-Generating new SSH public key.
-Uploading ssh public key /Users/david/.ssh/id_rsa.pub
-```
+    ```bash
+    heroku login
+    
+    Enter your Heroku credentials.
+    Email: you@example.com
+    Password:
+    Could not find an existing public key.
+    Would you like to generate one? [Yn]
+    Generating new SSH public key.
+    Uploading ssh public key /Users/david/.ssh/id_rsa.pub
+    ```
 
 2. Install Rails
-```bash
-gem install rails
-```
+    ```bash
+    gem install rails
+    ```
 
 3. Add the Heroku Gem to this project
 
-I would have done this for you, but this is more fun!
-
-```bash
-echo "gem 'rails_12factor'" >> Gemfile
-bundle install
-```
+    I would have done this for you, but this is more fun!
+    
+    ```bash
+    echo "gem 'rails_12factor'" >> Gemfile
+    bundle install
+    ```
 
 4. Drop back to your local machine's shell and change to the application directory
 
-This will add a heroku branch to the git repository
-
-```bash
-heroku create
-Creating dwolla-rails-heroku... done, stack is cedar-14
-https://dwolla-rails-heroku.herokuapp.com/ | https://git.heroku.com/dwolla-rails-heroku.git
-Git remote heroku added
-```
+    This will add a heroku branch to the git repository
+    
+    ```bash
+    heroku create
+    Creating dwolla-rails-heroku... done, stack is cedar-14
+    https://dwolla-rails-heroku.herokuapp.com/ | https://git.heroku.com/dwolla-rails-heroku.git
+    Git remote heroku added
+    ```
 
 And finally, deploy and run.
 
