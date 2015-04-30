@@ -62,9 +62,13 @@ Heroku is in the name of the repo, right?
 *Please* fork this repository before doing this.
 
 1. Connect your GitHub account in your Heroku admin panel
+
 2. Search for your repository
+
 	![Search](https://s3.amazonaws.com/heroku.devcenter/heroku_assets/images/421-original.jpg)
+
 3. Deploy a branch
+
 	![Deploy](https://s3.amazonaws.com/heroku.devcenter/heroku_assets/images/422-original.jpg)
 
 ### How-to deploy: the devops special
