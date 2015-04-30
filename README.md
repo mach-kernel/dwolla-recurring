@@ -77,13 +77,24 @@ Heroku is in the name of the repo, right?
     gem install rails
     ```
 
-3. Add the Heroku Gem to this project
+3. Add Heroku gem, change `redirect`
 
     I would have done this for you, but this is more fun!
     
     ```bash
     echo "gem 'rails_12factor'" >> Gemfile
     bundle install
+    ```
+    
+    And now, let's edit `config/initializers/dwollavars.rb` to change our callback URI to something appropriate (your instance's publically facing hostname'
+    ```
+	module DwollaVars
+		...
+	
+		@@redirect ||= "http://localhost:3000/dashboard/handle_oauth"
+		
+		...
+	end
     ```
 
 4. Drop back to your local machine's shell and change to the application directory
