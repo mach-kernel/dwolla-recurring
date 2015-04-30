@@ -87,7 +87,7 @@ Heroku is in the name of the repo, right?
     ```
     
     And now, let's edit `config/initializers/dwollavars.rb` to change our callback URI to something appropriate (your instance's publically facing hostname'
-    ```
+    ```ruby
 	module DwollaVars
 		...
 	
