@@ -38,6 +38,10 @@
           <p><h6>Leave me blank if you do not wish to recur payment</h6></p>
         </div>
         <div class="panel-body">
+          <p>Frequency:</br> <%= f.select :frequency, @fr %></p>
+          <p>End Date:</br> <%= f.text_field :endDate, class: 'form-control', :placeholder => 'YYYY-MM-DD' %> </p>
+          <hr />
+          <p>On days:</p>
           <%= f.check_box :mon, { checked: 0 } %> Mon <br/>
           <%= f.check_box :tue, { checked: 0 } %> Tue <br/>
           <%= f.check_box :wed, { checked: 0 } %> Wed <br/>

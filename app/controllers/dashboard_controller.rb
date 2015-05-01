@@ -8,8 +8,15 @@ class DashboardController < ApplicationController
 	rescue_from Dwolla::DwollaError, :with => :rescue_dwolla_errors
 
 	def rescue_dwolla_errors(exception)
-		flash[:error] = "Uh oh! A Dwolla API error was encountered: \n#{exception.message}"
-		redirect_to :back
+		reset_session if exception.message == "Expired access token." or exception.message == "Invalid access token."
+
+		if exception.message != "Expired access token." or exception.message != "Invalid access token."
+			flash[:error] = "Uh oh! A Dwolla API error was encountered: \n#{exception.message}"
+			redirect_to :back
+		else
+			flash[:error] = "An authentication error was encountered and you were logged out. Try again?"
+			redirect_to '/'
+		end
 	end
 
 	def is_email?(str)
@@ -26,9 +33,10 @@ class DashboardController < ApplicationController
 			flash[:error] = "Easy there! Log in first!"
 			redirect_to '/'
 		else		
+			@fr = ['weekly', 'monthly']
 			@fs = []
 			DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
-				@fs.push([h['Name'], h['Id']])
+				@fs.push([h['Name'], h['Id']]) unless h['Name'] == "My Dwolla Balance"
 			end
 		end
 	end
@@ -43,7 +51,7 @@ class DashboardController < ApplicationController
 
 				@fs = []
 				DwollaVars.Dwolla::FundingSources.get(nil, session[:oauth_token]).each do |h|
-					@fs.push([h['Name'], h['Id']])
+					@fs.push([h['Name'], h['Id']]) unless h['Name'] == "My Dwolla Balance"
 				end
 
 				render 'edit'
@@ -81,7 +89,12 @@ class DashboardController < ApplicationController
 			weekly_recurrence << "7" if params[:scheduled][:sat]
 
 			unless weekly_recurrence.empty?
-				params[:scheduled][:recurrence] = {:frequency => 'weekly', :onDays => weekly_recurrence}
+				params[:scheduled][:recurrence] = 
+					{
+						:frequency => params[:scheduled][:frequency], 
+						:onDays => weekly_recurrence,
+						:endDate => params[:scheduled][:endDate]
+					}
 			end
 
 			params[:scheduled][:destinationType] = is_email?(params[:scheduled][:destinationId]) ? "Email" : "Dwolla"

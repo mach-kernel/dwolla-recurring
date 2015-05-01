@@ -4,4 +4,5 @@
 
 $(document).ready ->
   $('#scheduled_scheduleDate').datepicker format: 'yyyy-mm-dd'
+  $('#scheduled_endDate').datepicker format: 'yyyy-mm-dd'
   return
