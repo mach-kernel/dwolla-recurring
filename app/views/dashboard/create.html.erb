@@ -1,3 +1,7 @@
+<%= stylesheet_link_tag "application" %>
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "dashboard" %>
+
 <div class="container">
   <h1 class="page-header">Create a scheduled transaction</h1>
   <h4><i>Cash rules everything around me, CREAM, get the money, dwolla dwolla bill ya'll.</i></h4>
@@ -34,6 +38,10 @@
           <p><h6>Leave me blank if you do not wish to recur payment</h6></p>
         </div>
         <div class="panel-body">
+          <p>Frequency:</br> <%= f.select :frequency, @fr %></p>
+          <p>End Date:</br> <%= f.text_field :endDate, class: 'form-control', :placeholder => 'YYYY-MM-DD' %> </p>
+          <hr />
+          <p>On days:</p>
           <%= f.check_box :mon, { checked: 0 } %> Mon <br/>
           <%= f.check_box :tue, { checked: 0 } %> Tue <br/>
           <%= f.check_box :wed, { checked: 0 } %> Wed <br/>
