@@ -1,4 +1,4 @@
-# dwolla-recurring-heroku
+# dwolla-recurring
 A quickstart tutorial application written in Rails 4 + bootstrap to illustrate recurring transactions in the Dwolla API.
 
 ![Ooh! Pretty!](http://puu.sh/htYFn/1d9afd6b3e.png)
@@ -16,8 +16,8 @@ This application does not require any database access as all the data is process
 The default application key and secret bundled with the application are for you to use with the UAT environment, so you can just run it!
 
 ```bash
-git clone https://github.com/mach-kernel/dwolla-recurring-heroku.git
-cd dwolla-recurring-heroku
+git clone https://github.com/mach-kernel/dwolla-recurring.git
+cd dwolla-recurring
 bundle install && rails s
 ```
 
@@ -48,8 +48,6 @@ end
 **Note**: These values cannot be edited on-the-fly (except from within a `rails c` session) and require a restart of the rails server. 
 
 ## Deploy to Heroku
-
-Heroku is in the name of the repo, right?
 
 ### Requirements
 
